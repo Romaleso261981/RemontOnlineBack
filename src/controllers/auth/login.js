@@ -1,53 +1,52 @@
-const { User } = require("../../schemas/user");
-const { authSchema } = require("../../schemas/joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { User } = require("../../schemas/user");
+const { authSchema } = require("../../schemas/joi");
 
-const { ACCESS_SECRET_KEY } = process.env;
+const { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = process.env;
 
-async function login(req, res) {
-  const { email, password } = req.body;
-  const { error } = authSchema.validate(req.body);
+async function login(req, res, next) {
+  try {
+    const { email, password } = req.body;
+    const { error } = authSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ message: "Wrong email or password" });
+    }
 
-  if (error) {
-    return res
-      .status(400)
-      .json({ message: "Validate error, wrong email or password" });
+    const user = await User.findOne({ email });
+    const userPassword = await bcrypt.compare(password, user.password);
+    if (!user || !userPassword) {
+      return res.status(401).json({ message: "Email or password is wrong" });
+    }
+
+    // if (!user.verify) {
+    //   return res.status(401).json({ message: "Your Email is not verifyied!" });
+    // }
+
+    const payload = {
+      id: user._id,
+    };
+    const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
+      expiresIn: "24h",
+    });
+    const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
+      expiresIn: "7d",
+    });
+
+    await User.findByIdAndUpdate(user._id, { accessToken, refreshToken });
+
+    return res.status(200).json({
+      status: "success",
+      code: 200,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+      user: {
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
-
-  const user = await User.findOne({ email });
-
-  if (!user) {
-    return res
-      .status(401)
-      .json({ message: "User does not exist, please register" });
-  }
-
-  const userPassword = await bcrypt.compare(password, user.password);
-
-  if (!userPassword) {
-    return res.status(401).json({ message: "Password is wrong" });
-  }
-
-  const payload = {
-    id: user._id,
-  };
-
-  const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
-    expiresIn: "24h",
-  });
-  await User.findByIdAndUpdate(user._id, { accessToken });
-
-  const userUpdated = await User.findOne({ email });
-
-  return res.status(200).json({
-    status: "success",
-    code: 200,
-    data: {
-      userUpdated,
-      accessToken,
-    },
-  });
 }
 
 module.exports = login;
