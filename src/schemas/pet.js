@@ -4,20 +4,23 @@ const Joi = require("joi");
 
 const petSchema = Schema(
   {
-    name: {
+    nametechnique: {
       type: String,
       required: [true, "Set name for pet"],
       min: 2,
       max: 16,
     },
-    birthday: {
+    datecreation: {
       type: String,
     },
-    breed: {
+    model: {
       type: String,
       required: true,
       min: 2,
       max: 16,
+    },
+    phone: {
+      type: String,
     },
     photo: {
       type: String,
