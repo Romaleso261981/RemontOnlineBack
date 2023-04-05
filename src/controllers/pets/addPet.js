@@ -4,11 +4,9 @@ const { User } = require("../../schemas/user");
 const addPet = async (req, res) => {
   const owner = req.user.id;
   const petData = req.body;
-  console.log(petData);
-  const data = { owner, ...petData };
-  // const data = !!req.file
-  //   ? { photo: req.file.path, owner, ...petData }
-  //   : { owner, ...petData };
+  const data = !!req.file
+    ? { photo: req.file.path, owner, ...petData }
+    : { owner, ...petData };
 
   Pet.create(data)
     .then((pet) => {
@@ -18,14 +16,7 @@ const addPet = async (req, res) => {
             if (user) {
               const allUserPets = await Pet.find(
                 { owner: owner },
-                {
-                  nametechnique: 1,
-                  datecreation: 1,
-                  model: 1,
-                  phone: 1,
-                  photo: 1,
-                  comments: 1,
-                }
+                { name: 1, birthday: 1, breed: 1, photo: 1, comments: 1 }
               );
               res.status(201).json({ success: true, allUserPets });
             }

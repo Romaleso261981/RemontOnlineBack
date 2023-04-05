@@ -13,9 +13,5 @@ userRouter.get(
   authMiddleware,
   ctrlWrapper(userController.aboutUserEndPets)
 );
-userRouter.post(
-  "/current",
-  ctrlWrapper(userController.currentUser)
-);
 
 module.exports = userRouter;

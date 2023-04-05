@@ -37,10 +37,6 @@ const schema = mongoose.Schema(
       type: String,
       default: null,
     },
-    refreshToken: {
-      type: String,
-      default: null,
-    },
     userLikePets: [{ type: Schema.Types.ObjectId, ref: "notice" }],
     userAddPet: [{ type: Schema.Types.ObjectId, ref: "userAddPet" }],
   },
