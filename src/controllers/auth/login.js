@@ -30,7 +30,7 @@ async function login(req, res, next) {
       expiresIn: "24h",
     });
     const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
-      expiresIn: "7d",
+      expiresIn: "20m",
     });
 
     await User.findByIdAndUpdate(user._id, { accessToken, refreshToken });

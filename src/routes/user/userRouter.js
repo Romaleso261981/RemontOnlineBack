@@ -15,7 +15,6 @@ userRouter.get(
 );
 userRouter.post(
   "/current",
-  authMiddleware,
   ctrlWrapper(userController.currentUser)
 );
 

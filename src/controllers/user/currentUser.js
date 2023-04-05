@@ -1,48 +1,40 @@
 const { User } = require("../../schemas/user");
-const { authSchema } = require("../../schemas/joi");
-// const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
-// const { ACCESS_SECRET_KEY } = process.env;
+const { REFRESH_SECRET_KEY, ACCESS_SECRET_KEY } = process.env;
 
 async function currentUser(req, res) {
-  const { email } = req.user;
-  const { error } = authSchema.validate(req.body);
-  console.log(email);
-  if (error) {
-    return res
-      .status(400)
-      .json({ message: "Validate error, wrong email or password" });
+  console.log("currentUser");
+  const { refreshToken: token } = req.body;
+
+  if (token === undefined) {
+    return res.status(404).json({ message: "refreshToken not found" });
   }
 
-    const user = await User.findOne({ email });
+  const { id } = jwt.verify(token, REFRESH_SECRET_KEY);
+  console.log(id);
+  const user = await User.findById(id);
+  console.log(user);
+  if (!user) {
+    return res.status(404).json({ message: "user not found" });
+  }
 
-  //   if (!user) {
-  //     return res
-  //       .status(401)
-  //       .json({ message: "User does not exist, please register" });
-  //   }
+  const payload = {
+    id,
+  };
 
-  //   const userPassword = await bcrypt.compare(password, user.password);
-
-  //   if (!userPassword) {
-  //     return res.status(401).json({ message: "Password is wrong" });
-  //   }
-
-  //   const payload = {
-  //     id: user._id,
-  //   };
-
-  //   const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
-  //     expiresIn: "24h",
-  //   });
-  //   await User.findByIdAndUpdate(user._id, { accessToken });
-
-//   const userUpdated = await User.findOne({ email });
+  const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
+    expiresIn: "1m",
+  });
+  const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
+    expiresIn: "20m",
+  });
 
   return res.status(200).json({
     status: "success",
     code: 200,
+    accessToken,
+    refreshToken,
     data: {
       user,
     },
