@@ -24,10 +24,10 @@ async function currentUser(req, res) {
   };
 
   const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
-    expiresIn: "1m",
+    expiresIn: "720h",
   });
   const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
-    expiresIn: "20m",
+    expiresIn: "800h",
   });
 
   return res.status(200).json({
