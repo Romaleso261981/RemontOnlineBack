@@ -12,7 +12,7 @@ async function updateUser(req, res) {
       birthday,
       phone,
       city,
-      avatarUrl: req?.file?.path,
+      avatarUrl: req.file.path,
     },
     {
       new: true,
