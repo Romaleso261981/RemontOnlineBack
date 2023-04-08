@@ -1,7 +1,8 @@
-const { Pet } = require("../../schemas/pet");
+const { Order } = require("../../schemas/order");
 const { User } = require("../../schemas/user");
 
-const addPet = async (req, res) => {
+const addOrder = async (req, res) => {
+  console.log("addOrder");
   const owner = req.user.id;
   const petData = req.body;
   console.log(petData);
@@ -9,22 +10,31 @@ const addPet = async (req, res) => {
   // const data = !!req.file
   //   ? { photo: req.file.path, owner, ...petData }
   //   : { owner, ...petData };
-
-  Pet.create(data)
-    .then((pet) => {
-      if (pet) {
-        User.findByIdAndUpdate(owner, { $push: { userAddPet: pet._id } })
+  
+  Order.create(data)
+    .then((order) => {
+      if (order) {
+        User.findByIdAndUpdate(owner, { $push: { userAddPet: order._id } })
           .then(async (user) => {
             if (user) {
-              const allUserPets = await Pet.find(
+              const allUserPets = await Order.find(
                 { owner: owner },
                 {
+                  number: 1,
                   nametechnique: 1,
+                  serialNumber: 1,
                   datecreation: 1,
+                  brend: 1,
                   model: 1,
+                  customerName: 1,
+                  customerAddress: 1,
                   phone: 1,
                   photo: 1,
-                  comments: 1,
+                  descriptionOfRepair: 1,
+                  descriptionMalfunction: 1,
+                  status: 1,
+                  owner: 1,
+                  cost: 1,
                 }
               );
               res.status(201).json({ success: true, allUserPets });
@@ -40,4 +50,4 @@ const addPet = async (req, res) => {
     );
 };
 
-module.exports = addPet;
+module.exports = addOrder;

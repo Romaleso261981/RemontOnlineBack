@@ -1,13 +1,13 @@
-const { Pet } = require("../../schemas/pet");
+const { Order } = require("../../schemas/order");
 const { NotFound } = require("http-errors");
 
 const removeById = async (req, res) => {
   const { petId } = req.params;
 
-  const result = await Pet.findByIdAndRemove(petId, req.body);
+  const result = await Order.findByIdAndRemove(petId, req.body);
 
   if (!result) {
-    throw new NotFound(`Pet with id = ${petId} not found`);
+    throw new NotFound(`Order with id = ${petId} not found`);
   }
   res.json({
     status: "success",

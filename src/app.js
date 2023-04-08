@@ -6,7 +6,7 @@ const servicesRouter = require("./routes/basic/servicesRouter");
 const authRouter = require("./routes/auth/authRouter");
 const noticesRouter = require("./routes/notices/noticesRouter");
 const userRouter = require("./routes/user/userRouter");
-const petsRouter = require("./routes/pets/petsRouter");
+const orderRouter = require("./routes/order/orderRouter");
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(express.json());
 app.use("/", servicesRouter);
 app.use("/auth", authRouter);
 app.use("/notices", noticesRouter);
-app.use("/pets", petsRouter);
+app.use("/orders", orderRouter);
 app.use("/user", userRouter);
 
 app.use((req, res) => {

@@ -13,7 +13,7 @@ const noticeSchema = Schema(
     },
     name: {
       type: String,
-      required: [true, "Set name for pet"],
+      required: [true, "Set name for order"],
     },
     birthdate: {
       type: String,

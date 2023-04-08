@@ -1,7 +1,7 @@
-const addPet = require("./addPet");
+const addOrder = require("./addOrder");
 const removeById = require("./removeById");
 
 module.exports = {
-  addPet,
+  addOrder,
   removeById,
 };

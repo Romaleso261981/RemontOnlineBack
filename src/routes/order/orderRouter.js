@@ -1,20 +1,20 @@
 const express = require("express");
 const { uploadCloud } = require("../../middlewares/uploadCloud");
 const { authMiddleware } = require("../../middlewares/authMiddleware");
-const { addPet, removeById } = require("../../controllers/pets");
+const { addOrder, removeById } = require("../../controllers/pets");
 const { ctrlWrapper } = require("../../middlewares/ctrlWrapper");
 
-const petsRouter = express.Router();
+const orderRouter = express.Router();
 
 // створити ендпоінт для додавання карточки тварини користувача
-petsRouter.post(
-  "/pet",
+orderRouter.post(
+  "/order",
   ctrlWrapper(authMiddleware),
   uploadCloud.single("photo"),
-  ctrlWrapper(addPet)
+  ctrlWrapper(addOrder)
 );
 
 // створити ендпоінт для видалення карточки з твариною користувача
-petsRouter.delete("/:petId", ctrlWrapper(removeById));
+orderRouter.delete("/:orderId", ctrlWrapper(removeById));
 
-module.exports = petsRouter;
+module.exports = orderRouter;

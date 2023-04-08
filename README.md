@@ -2,13 +2,11 @@
 
 ---
 
-
 #### :link:**_Final project "Petly project":moneybag: - backend_**
 
 ---
 
-Pet-project - back-end part of the application "Petly project". This application is for .
-
+Order-project - back-end part of the application "Petly project". This application is for .
 
 ---
 

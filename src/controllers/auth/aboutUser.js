@@ -1,5 +1,5 @@
 const { User } = require("../../schemas/user");
-const { Pet } = require("../../schemas/pet");
+const { Order } = require("../../schemas/order");
 
 async function aboutUser(req, res) {
   try {
@@ -7,7 +7,7 @@ async function aboutUser(req, res) {
     const { _id } = req.params;
 
     const newUser = await User.findOne({ email });
-    const allUserPets = await Pet.find(
+    const allUserPets = await Order.find(
       { owner: _id },
       { name: 1, birthday: 1, breed: 1, photo: 1, comments: 1 }
     );

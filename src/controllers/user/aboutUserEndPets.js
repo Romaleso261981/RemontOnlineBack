@@ -1,18 +1,24 @@
-const { Pet } = require("../../schemas/pet");
+const { Order } = require("../../schemas/order");
 
 async function aboutUserEndPets(req, res) {
   const { user } = req;
 
-  const data = await Pet.find();
-  const userWithPet = await Pet.find(
+  const userWithPet = await Order.find(
     { owner: user._id },
     {
-      nametechnique: 1,
-      model: 1,
-      phone: 1,
-      photo: 1,
-      comments: 1,
+      number: 1,
+      serialNumber: 1,
       datecreation: 1,
+      brend: 1,
+      model: 1,
+      customerName: 1,
+      customerAddress: 1,
+      phone: 1,
+      cost: 1,
+      descriptionOfRepair: 1,
+      descriptionMalfunction: 1,
+      nametechnique: 1,
+      status: 1,
       _id: 1,
     }
   );
@@ -20,7 +26,6 @@ async function aboutUserEndPets(req, res) {
     data: {
       userWithPet,
       user,
-      data,
     },
   });
 }
