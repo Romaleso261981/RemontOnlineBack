@@ -10,7 +10,7 @@ const addOrder = async (req, res) => {
   // const data = !!req.file
   //   ? { photo: req.file.path, owner, ...petData }
   //   : { owner, ...petData };
-  
+
   Order.create(data)
     .then((order) => {
       if (order) {

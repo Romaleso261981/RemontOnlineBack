@@ -51,15 +51,15 @@ const petSchema = Schema(
     status: {
       type: String,
       enum: [
-        "in work",
-        "done",
-        "price negotiation",
-        "spare parts order",
-        "under warranty",
-        "problem client",
-        "accepted",
+        "в роботі",
+        "зроблено",
+        "замовлення запчастин",
+        "очікування запчастин",
+        "на гарантії",
+        "проблемний клієнт",
+        "прийнятий",
       ],
-      default: "accepted",
+      default: "прийнятий",
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -79,8 +79,6 @@ const joiSchema = Joi.object({
   customerAddress: Joi.string(),
   phone: Joi.string(),
   photo: Joi.string(),
-  name: Joi.string().min(2).max(16).required(),
-  birthday: Joi.date().required(),
   breed: Joi.string().min(2).max(16).required(),
   comments: Joi.string().min(8).max(120).required(),
 });
