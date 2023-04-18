@@ -6,7 +6,7 @@ async function noticesByCategory(req, res) {
   console.log(category);
 
   const userWithPet = await Order.find(
-    { status: category },
+    { type: category },
     {
       number: 1,
       serialNumber: 1,
