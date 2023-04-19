@@ -20,7 +20,7 @@ async function noticesByCategory(req, res) {
       descriptionOfRepair: 1,
       descriptionMalfunction: 1,
       nametechnique: 1,
-      status: 1,
+      type: 1,
       _id: 1,
     }
   ).limit(30);

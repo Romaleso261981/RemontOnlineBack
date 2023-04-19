@@ -48,7 +48,7 @@ const petSchema = Schema(
       min: 8,
       max: 120,
     },
-    status: {
+    type: {
       type: String,
       enum: [
         "в роботі",
