@@ -23,7 +23,7 @@ async function noticesByCategory(req, res) {
       type: 1,
       _id: 1,
     }
-  ).limit(30);
+  ).limit(100);
 
   return res.status(200).json({
     data: {

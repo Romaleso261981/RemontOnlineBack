@@ -4,6 +4,7 @@ const createNotice = async (req, res, next) => {
   const { _id } = req.user;
   const notice = req.body;
 
+  // eslint-disable-next-line no-extra-boolean-cast
   const newNotice = !!req.file
     ? { image: req.file.path, owner: _id, ...notice }
     : { owner: _id, ...notice };
