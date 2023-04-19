@@ -23,7 +23,7 @@ async function noticesByCategory(req, res) {
       status: 1,
       _id: 1,
     }
-  );
+  ).limit(30);
 
   return res.status(200).json({
     data: {
@@ -33,7 +33,7 @@ async function noticesByCategory(req, res) {
   });
 }
 
-module.exports = {noticesByCategory};
+module.exports = { noticesByCategory };
 
 // const { Notice } = require("../../schemas/notices");
 
