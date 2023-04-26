@@ -22,6 +22,9 @@ const petSchema = Schema(
     model: {
       type: String,
     },
+    completeSet: {
+      type: String,
+    },
     customerName: {
       type: String,
     },

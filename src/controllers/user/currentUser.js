@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const { REFRESH_SECRET_KEY, ACCESS_SECRET_KEY } = process.env;
 
 async function currentUser(req, res) {
-  console.log("currentUser");
   const { refreshToken: token } = req.body;
 
   if (token === undefined) {
@@ -12,9 +11,9 @@ async function currentUser(req, res) {
   }
 
   const { id } = jwt.verify(token, REFRESH_SECRET_KEY);
-  console.log(id);
+ 
   const user = await User.findById(id);
-  console.log(user);
+
   if (!user) {
     return res.status(404).json({ message: "user not found" });
   }

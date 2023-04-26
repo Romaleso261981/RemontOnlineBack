@@ -3,27 +3,9 @@ const { Order } = require("../../schemas/order");
 async function noticesByCategory(req, res) {
   const { user } = req;
   const { category } = req.params;
-  console.log(category);
 
-  const userWithPet = await Order.find(
-    { type: category },
-    {
-      number: 1,
-      serialNumber: 1,
-      datecreation: 1,
-      brend: 1,
-      model: 1,
-      customerName: 1,
-      customerAddress: 1,
-      phone: 1,
-      cost: 1,
-      descriptionOfRepair: 1,
-      descriptionMalfunction: 1,
-      nametechnique: 1,
-      type: 1,
-      _id: 1,
-    }
-  ).limit(100);
+  const userWithPet = await Order.find({ type: category }).limit(100);
+  console.log(userWithPet);
 
   return res.status(200).json({
     data: {
