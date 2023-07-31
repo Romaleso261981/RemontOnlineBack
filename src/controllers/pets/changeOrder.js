@@ -5,14 +5,20 @@ const changeOrder = async (req, res) => {
    const { descriptionMalfunction, descriptionOfRepair, cost } = req.body;
    const { orderId } = req.params;
 
+   const oldUser = await Order.findById(orderId);
+
+   const newCost = cost === '' ? oldUser.cost : cost;
+   const newDescriptionMalfunction = descriptionMalfunction === '' ? oldUser.descriptionMalfunction : descriptionMalfunction;
+   const newDescriptionOfRepair = descriptionOfRepair === '' ? oldUser.descriptionOfRepair : descriptionOfRepair;
+
    try {
-      const result = await Order.findByIdAndUpdate(orderId, {
-         cost,
-         descriptionMalfunction,
-         descriptionOfRepair,
+      const newUser = await Order.findByIdAndUpdate(orderId, {
+         newCost,
+         newDescriptionMalfunction,
+         newDescriptionOfRepair,
       });
 
-      if (!result) {
+      if (!newUser) {
          return res.status(404).json({ status: 'error', message: `Order with id = ${orderId} not found` });
       }
 
@@ -20,7 +26,7 @@ const changeOrder = async (req, res) => {
          status: 'success',
          code: 200,
          message: 'Order updated successfully',
-         result,
+         newUser,
       });
    } catch (error) {
       res.status(500).json({ status: 'error', message: error.message });
