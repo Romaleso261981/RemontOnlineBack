@@ -16,6 +16,6 @@ orderRouter.post(
 
 // створити ендпоінт для видалення карточки з твариною користувача
 orderRouter.delete("/:orderId", ctrlWrapper(removeById));
-orderRouter.post("/:orderId", ctrlWrapper(changeOrder));
+orderRouter.post("/editing/:orderId", ctrlWrapper(changeOrder));
 
 module.exports = orderRouter;

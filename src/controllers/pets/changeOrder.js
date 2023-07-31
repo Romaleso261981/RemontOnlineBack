@@ -1,24 +1,30 @@
-const { Order } = require("../../schemas/order");
-const { NotFound } = require("http-errors");
+const { Order } = require('../../schemas/order');
+// const { NotFound } = require("http-errors");
 
 const changeOrder = async (req, res) => {
-  const { orderId } = req.params;
+   const { descriptionMalfunction, descriptionOfRepair, cost } = req.body;
+   const { orderId } = req.params;
 
-  // const result = await Order.findById(orderId);
-//   const result = await Order.findByIdAndDelete({ _id: orderId });
+   try {
+      const result = await Order.findByIdAndUpdate(orderId, {
+         cost,
+         descriptionMalfunction,
+         descriptionOfRepair,
+      });
 
-  const result = await Order.findByIdAndUpdate(orderId, {
-    type: "зроблено",
-  });
+      if (!result) {
+         return res.status(404).json({ status: 'error', message: `Order with id = ${orderId} not found` });
+      }
 
-  if (!result) {
-    throw new NotFound(`Order with id = ${orderId} not found`);
-  }
-  res.json({
-    status: "success",
-    code: 200,
-    result,
-  });
+      res.json({
+         status: 'success',
+         code: 200,
+         message: 'Order updated successfully',
+         result,
+      });
+   } catch (error) {
+      res.status(500).json({ status: 'error', message: error.message });
+   }
 };
 
 module.exports = changeOrder;
