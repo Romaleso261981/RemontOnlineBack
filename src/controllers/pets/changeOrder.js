@@ -5,17 +5,13 @@ const changeOrder = async (req, res) => {
    const { descriptionMalfunction, descriptionOfRepair, cost } = req.body;
    const { orderId } = req.params;
 
-   const oldUser = await Order.findById(orderId);
 
-   const newCost = cost === '' ? oldUser.cost : cost;
-   const newDescriptionMalfunction = descriptionMalfunction === '' ? oldUser.descriptionMalfunction : descriptionMalfunction;
-   const newDescriptionOfRepair = descriptionOfRepair === '' ? oldUser.descriptionOfRepair : descriptionOfRepair;
 
    try {
       const newUser = await Order.findByIdAndUpdate(orderId, {
-         newCost,
-         newDescriptionMalfunction,
-         newDescriptionOfRepair,
+         cost,
+         descriptionMalfunction,
+         descriptionOfRepair,
       });
 
       if (!newUser) {
