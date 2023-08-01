@@ -1,5 +1,5 @@
 const { Order } = require('../../schemas/order');
-// const { NotFound } = require("http-errors");
+const { NotFound } = require("http-errors");
 
 const changeOrder = async (req, res) => {
    const { descriptionMalfunction, descriptionOfRepair, cost } = req.body;
@@ -20,8 +20,8 @@ const changeOrder = async (req, res) => {
       });
 
       if (!newUser) {
-         return res.status(404).json({ status: 'error', message: `Order with id = ${orderId} not found` });
-      }
+         throw new NotFound(`Order with id = ${orderId} not found`);
+       }
 
       res.json({
          status: 'success',

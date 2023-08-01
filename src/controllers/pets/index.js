@@ -1,9 +1,9 @@
 const addOrder = require("./addOrder");
-const removeById = require("./removeById");
+const markUsDone = require("./markUsDone");
 const changeOrder = require("./changeOrder");
 
 module.exports = {
   addOrder,
-  removeById,
+  markUsDone,
   changeOrder,
 };
