@@ -2,7 +2,8 @@ const { User } = require("../../schemas/user");
 
 async function logout(req, res, next) {
   try {
-    const { _id } = req.user;
+    // const { _id } = req.user;
+    const  _id  = '642e8dbdc1a738bdb26c8091';
     const oldUser = await User.findByIdAndUpdate(_id, {
       accessToken: null,
       refreshToken: null,

@@ -2,7 +2,8 @@ const { Order } = require("../../schemas/order");
 const { User } = require("../../schemas/user");
 
 const addOrder = async (req, res) => {
-  const owner = req.user.id;
+  // const owner = req.user.id;
+  const owner = '642e8dbdc1a738bdb26c8091';
   const petData = req.body;
   const data = { owner, ...petData };
   // const data = !!req.file

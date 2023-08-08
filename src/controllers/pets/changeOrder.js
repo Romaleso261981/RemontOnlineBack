@@ -3,7 +3,8 @@ const { Order } = require('../../schemas/order');
 
 const changeOrder = async (req, res) => {
    const { descriptionMalfunction, descriptionOfRepair, cost } = req.body;
-   const { orderId } = req.params;
+   // const { orderId } = req.params;
+   const orderId  = '642e8dbdc1a738bdb26c8091';
 
    try {
       const result = await Order.findByIdAndUpdate(orderId, {
