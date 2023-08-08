@@ -1,7 +1,7 @@
 const express = require("express");
 const { uploadCloud } = require("../../middlewares/uploadCloud");
 const { authMiddleware } = require("../../middlewares/authMiddleware");
-const { addOrder, markUsDone, changeOrder } = require("../../controllers/pets");
+const { addOrder, removeById, changeOrder } = require("../../controllers/pets");
 const { ctrlWrapper } = require("../../middlewares/ctrlWrapper");
 
 const orderRouter = express.Router();
@@ -15,7 +15,7 @@ orderRouter.post(
 );
 
 // створити ендпоінт для видалення карточки з твариною користувача
-orderRouter.post("/done/:orderId", ctrlWrapper(markUsDone));
+orderRouter.delete("/:orderId", ctrlWrapper(removeById));
 orderRouter.post("/editing/:orderId", ctrlWrapper(changeOrder));
 
 module.exports = orderRouter;
