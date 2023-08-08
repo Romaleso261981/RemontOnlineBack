@@ -1,6 +1,6 @@
 const express = require("express");
 const { authController } = require("../../controllers");
-const { authMiddleware } = require("../../middlewares/authMiddleware");
+// const { authMiddleware } = require("../../middlewares/authMiddleware");
 const { ctrlWrapper } = require("../../middlewares/ctrlWrapper");
 const { uploadCloud } = require("../../middlewares/uploadCloud");
 
@@ -10,10 +10,9 @@ authRouter.post("/signup", ctrlWrapper(authController.signup));
 authRouter.post("/login", ctrlWrapper(authController.login));
 authRouter.put(
   "/change",
-  authMiddleware,
   uploadCloud.single("avatarUrl"),
   ctrlWrapper(authController.updateUser)
 );
-authRouter.get("/logout", authMiddleware, ctrlWrapper(authController.logout));
+authRouter.get("/logout", ctrlWrapper(authController.logout));
 
 module.exports = authRouter;
