@@ -1,4 +1,4 @@
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User } = require("../../schemas/user");
 const { authSchema } = require("../../schemas/joi");
@@ -12,12 +12,12 @@ async function login(req, res, next) {
     if (error) {
       return res.status(400).json({ message: "Wrong email or password" });
     }
-console.log(password);
+
     const user = await User.findOne({ email });
-    // const userPassword = await bcrypt.compare(password, user.password);
-    // if (!user || !userPassword) {
-    //   return res.status(401).json({ message: "Email or password is wrong" });
-    // }
+    const userPassword = await bcrypt.compare(password, user.password);
+    if (!user || !userPassword) {
+      return res.status(401).json({ message: "Email or password is wrong" });
+    }
 
     // if (!user.verify) {
     //   return res.status(401).json({ message: "Your Email is not verifyied!" });
@@ -27,10 +27,10 @@ console.log(password);
       id: user._id,
     };
     const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
-      expiresIn: "365d",
+      expiresIn: "24h",
     });
     const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
-      expiresIn: "365d",
+      expiresIn: "2d",
     });
 
     await User.findByIdAndUpdate(user._id, { accessToken, refreshToken });
