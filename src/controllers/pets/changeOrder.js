@@ -2,13 +2,14 @@ const { Order } = require('../../schemas/order')
 // const { NotFound } = require("http-errors");
 
 const changeOrder = async (req, res) => {
-	const { descriptionOfRepair, cost } = req.body
+	const { descriptionOfRepair, price, cost } = req.body
 	const { orderId } = req.params
 
 	try {
 		const result = await Order.findByIdAndUpdate(orderId, {
 			cost,
-			descriptionOfRepair
+			descriptionOfRepair,
+         price
 		})
 
 		if (!result) {
@@ -17,7 +18,7 @@ const changeOrder = async (req, res) => {
 
 		const category = 'прийнятий'
 
-		const userWithPet = await Order.find({ type: category }).limit(100)
+		const userWithPet = await Order.find({ type: category }).limit(200)
 
 		res.json({
 			status: 'success',

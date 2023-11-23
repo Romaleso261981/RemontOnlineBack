@@ -41,6 +41,10 @@ const petSchema = Schema(
       type: String,
       default: "0",
     },
+    price: {
+      type: String,
+      default: "0",
+    },
     descriptionOfRepair: {
       type: String,
       min: 8,
