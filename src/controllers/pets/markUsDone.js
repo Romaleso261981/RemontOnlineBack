@@ -11,10 +11,16 @@ const markUsDone = async (req, res) => {
   if (!removedOrder) {
     throw new NotFound(`Order with id = ${orderId} not found`);
   }
+
+  const category = 'прийнятий'
+
+  const userWithPet = await Order.find({ type: category }).limit(100);
+
+
   res.json({
     status: "success",
     code: 200,
-    removedOrder
+    userWithPet
   });
 };
 
