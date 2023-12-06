@@ -5,6 +5,7 @@ const { orderController } = require('../../controllers')
 const orderRouter = express.Router()
 
 orderRouter.post('/order', ctrlWrapper(orderController.addOrder))
+orderRouter.get("/category/:category", ctrlWrapper(orderController.ordersByCategory));
 
 orderRouter.delete('/:orderId', ctrlWrapper(orderController.removeById))
 orderRouter.post('/editing/:orderId', ctrlWrapper(orderController.changeOrder))
