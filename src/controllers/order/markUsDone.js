@@ -23,5 +23,4 @@ const markUsDone = async (req, res) => {
     userWithPet
   });
 };
-
 module.exports = markUsDone;

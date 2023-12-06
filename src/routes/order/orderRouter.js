@@ -1,22 +1,13 @@
-const express = require("express");
-const { uploadCloud } = require("../../middlewares/uploadCloud");
-// const { authMiddleware } = require("../../middlewares/authMiddleware");
-const { addOrder, removeById, changeOrder } = require("../../controllers/pets");
-const { ctrlWrapper } = require("../../middlewares/ctrlWrapper");
-const markUsDone = require('../../controllers/pets/markUsDone');
+const express = require('express')
+const { ctrlWrapper } = require('../../middlewares/ctrlWrapper')
+const { orderController } = require('../../controllers')
 
-const orderRouter = express.Router();
+const orderRouter = express.Router()
 
-// створити ендпоінт для додавання карточки тварини користувача
-orderRouter.post(
-  "/order",
-  uploadCloud.single("photo"),
-  ctrlWrapper(addOrder)
-);
+orderRouter.post('/order', ctrlWrapper(orderController.addOrder))
 
-// створити ендпоінт для видалення карточки з твариною користувача
-orderRouter.delete("/:orderId", ctrlWrapper(removeById));
-orderRouter.post("/editing/:orderId", ctrlWrapper(changeOrder));
-orderRouter.post("/done/:orderId", ctrlWrapper(markUsDone));
+orderRouter.delete('/:orderId', ctrlWrapper(orderController.removeById))
+orderRouter.post('/editing/:orderId', ctrlWrapper(orderController.changeOrder))
+orderRouter.post('/done/:orderId', ctrlWrapper(orderController.markUsDone))
 
-module.exports = orderRouter;
+module.exports = orderRouter

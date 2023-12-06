@@ -35,6 +35,7 @@ const addOrder = async (req, res) => {
                   owner: 1,
                   cost: 1,
                   price: 1,
+                  completeSet: 1,
                 }
               );
               res.status(201).json({ success: true, allUserPets });
