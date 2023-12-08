@@ -4,11 +4,10 @@ const { User } = require("../../schemas/user");
 const addOrder = async (req, res) => {
   // const owner = req.user.id;
   const owner = '642e8dbdc1a738bdb26c8091';
-  const petData = req.body;
-  const data = { owner, ...petData };
-  // const data = !!req.file
-  //   ? { photo: req.file.path, owner, ...petData }
-  //   : { owner, ...petData };
+  const orderData = req.body;
+  const data = { owner, ...orderData };
+
+  console.log(data)
 
   Order.create(data)
     .then((order) => {
