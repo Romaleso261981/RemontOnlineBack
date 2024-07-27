@@ -8,12 +8,9 @@ mongoose.set("strictQuery", false);
 const { MONGODB_HOST_URI } = process.env;
 const PORT = process.env.PORT || 8080;
 
-
-
 async function main() {
   try {
-    
-    await mongoose.connect(MONGODB_HOST_URI);
+    mongoose.connect(MONGODB_HOST_URI);
     console.log("Database connection successful");
     app.listen(PORT, (err) => {
       if (err) {
