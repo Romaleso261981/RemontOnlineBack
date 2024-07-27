@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const authRouter = require("./routes/auth/authRouter");
 const orderRouter = require("./routes/order/orderRouter");
+const carsRouter = require("./routes/cars/carsRouter");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/auth", authRouter);
+app.use("/cars", carsRouter);
 app.use("/orders", orderRouter);
 
 app.use((req, res) => {
