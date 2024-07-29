@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { OktenUser } = require("../../schemas/oktenUser");
 
 const { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = process.env;
 
@@ -14,11 +15,11 @@ async function refreshToken(req, res, next) {
     });
   }
 
-  // const user = await OktenUser.findById(id);
-
-  // if (!user) {
-  //   return res.status(401).json({ message: "user not found" });
-  // }
+  const user = await OktenUser.findById(id);
+  console.log("user", user);
+  if (!user) {
+    return res.status(401).json({ message: "user not found" });
+  }
 
   try {
     const payload = {
