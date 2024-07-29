@@ -5,14 +5,27 @@ const { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = process.env;
 async function refreshToken(req, res, next) {
   const token = req.body.refreshToken;
 
-  console.log("token", token);
+  const { id } = jwt.verify(token, REFRESH_SECRET_KEY);
+
+  if (!id) {
+    return res.status(401).json({
+      message: "Not authorized",
+      clarification: "Token not have id"
+    });
+  }
+
+  // const user = await OktenUser.findById(id);
+
+  // if (!user) {
+  //   return res.status(401).json({ message: "user not found" });
+  // }
 
   try {
     const payload = {
-      id: "pmd,[pkef[lrt4654r6t54rt6gb464"
+      id
     };
     const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
-      expiresIn: "2m"
+      expiresIn: "1m"
     });
     const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
       expiresIn: "10m"

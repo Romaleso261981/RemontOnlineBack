@@ -5,6 +5,11 @@ const { ctrlWrapper } = require("../../middlewares/ctrlWrapper");
 
 const carsRouter = express.Router();
 
-carsRouter.get("/", authMiddleware, ctrlWrapper(carsController.getCars));
+carsRouter.get(
+  "/",
+  authMiddleware,
+  authMiddleware,
+  ctrlWrapper(carsController.getCars)
+);
 
 module.exports = carsRouter;
