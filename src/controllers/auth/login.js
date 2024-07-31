@@ -6,29 +6,29 @@ const { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = process.env;
 
 async function login(req, res, next) {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    const user = await OktenUser.findOne({ email });
+    const user = await OktenUser.findOne({ username });
     const userPassword = await bcrypt.compare(password, user.password);
     if (!user || !userPassword) {
-      return res.status(401).json({ message: "Email or password is wrong" });
+      return res.status(401).json({
+        detail: "No active account found with the given credentials"
+      });
     }
 
     const payload = {
       id: user._id
     };
     const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
-      expiresIn: "1m"
+      expiresIn: "60m"
     });
     const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
-      expiresIn: "10m"
+      expiresIn: "120m"
     });
 
     return res.status(200).json({
-      status: "success",
-      code: 200,
-      accessToken: accessToken,
-      refreshToken: refreshToken
+      access: accessToken,
+      refresh: refreshToken
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });

@@ -2,30 +2,27 @@ const bcrypt = require("bcrypt");
 const { OktenUser } = require("../../schemas/oktenUser");
 
 async function signup(req, res) {
-  const { email, password, name, avatarUrl } = req.body;
-  const emailToLoWerCase = email.toLowerCase();
+  const { username, password } = req.body;
 
-  // const userCheck = await User.findOne({ email: emailToLoWerCase });
-  // if (userCheck) {
-  //   res.status(409).json({ message: "Email in use" });
-  //   return;
-  // }
+  console.log("req.body", req.body);
+
+  const userCheck = await OktenUser.findOne({ username });
+  if (userCheck) {
+    res
+      .status(409)
+      .json({ username: ["user model with this username already exists."] });
+    return;
+  }
 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const newUser = await OktenUser.create({
-    email: emailToLoWerCase,
     password: hashedPassword,
-    name,
-    avatarUrl
+    username
   });
 
-  return res.status(201).json({
-    status: "success",
-    code: 201,
-    newUser
-  });
+  return res.status(201).json({ newUser });
 }
 
 module.exports = signup;

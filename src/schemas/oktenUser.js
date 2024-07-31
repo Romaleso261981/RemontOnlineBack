@@ -3,25 +3,34 @@ const { Schema } = mongoose;
 
 const schema = mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
-      default: ""
-    },
-    email: {
-      type: String,
-      required: [true, "Email is required"],
-      unique: true,
-      match: [/[a-z0-9]+@[a-z0-9]+/, "user email is not valid!"]
+      required: [true, "username is required"]
     },
     password: {
       type: String,
       required: [true, "password is required"]
     },
-    avatarUrl: {
-      type: String,
-      default: ""
+
+    is_active: {
+      type: Boolean,
+      default: true
+    },
+
+    is_staff: {
+      type: Boolean,
+      default: false
+    },
+    is_superuser: {
+      type: Boolean,
+      default: false
+    },
+    last_login: {
+      type: Date,
+      default: null
     }
   },
+
   { versionKey: false, timestamps: true }
 );
 
