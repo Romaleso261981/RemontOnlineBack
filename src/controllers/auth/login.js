@@ -4,7 +4,7 @@ const { OktenUser } = require("../../schemas/oktenUser");
 
 const { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = process.env;
 
-async function login(req, res, next) {
+async function login(req, res) {
   try {
     const { username, password } = req.body;
 

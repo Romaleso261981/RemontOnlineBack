@@ -15,6 +15,11 @@ const schema = mongoose.Schema(
       type: Number,
       default: "2000"
     },
+    photo: {
+      type: String,
+      default:
+        "https://img.goodfon.ru/original/2360x1640/7/8a/bnw-f82-m44-series-coupe.jpg"
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "OktenUser",

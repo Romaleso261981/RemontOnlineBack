@@ -4,8 +4,6 @@ const { OktenUser } = require("../../schemas/oktenUser");
 async function signup(req, res) {
   const { username, password } = req.body;
 
-  console.log("req.body", req.body);
-
   const userCheck = await OktenUser.findOne({ username });
   if (userCheck) {
     res

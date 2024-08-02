@@ -5,6 +5,7 @@ const authChange = require("./authChange");
 const aboutUser = require("./aboutUser");
 const updateUser = require("./updateUser");
 const refreshToken = require("./refreshToken");
+const currentUser = require("./currentUser");
 
 module.exports = {
   signup,
@@ -13,5 +14,6 @@ module.exports = {
   authChange,
   aboutUser,
   updateUser,
-  refreshToken
+  refreshToken,
+  currentUser
 };

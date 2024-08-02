@@ -19,7 +19,6 @@ const getCars = async (req, res) => {
 
   try {
     cars = await Cars.find({ owner: id });
-    console.log("cars", cars);
   } catch (error) {
     console.error("Error fetching cars by owner:", error);
     throw error;

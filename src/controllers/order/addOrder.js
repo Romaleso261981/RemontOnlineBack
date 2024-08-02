@@ -3,11 +3,9 @@ const { User } = require("../../schemas/user");
 
 const addOrder = async (req, res) => {
   // const owner = req.user.id;
-  const owner = '642e8dbdc1a738bdb26c8091';
+  const owner = "642e8dbdc1a738bdb26c8091";
   const orderData = req.body;
   const data = { owner, ...orderData };
-
-  console.log(data)
 
   Order.create(data)
     .then((order) => {
@@ -34,7 +32,7 @@ const addOrder = async (req, res) => {
                   owner: 1,
                   cost: 1,
                   price: 1,
-                  completeSet: 1,
+                  completeSet: 1
                 }
               );
               res.status(201).json({ success: true, allUserPets });
