@@ -1,5 +1,4 @@
 const { Cars } = require("../../schemas/cars");
-const { OktenUser } = require("../../schemas/oktenUser");
 
 const jwt = require("jsonwebtoken");
 
@@ -18,7 +17,7 @@ async function addedCars(req, res) {
   let prev = null;
   let next = null;
 
-  const newUser = await Cars.create({
+  await Cars.create({
     brand,
     price,
     year,

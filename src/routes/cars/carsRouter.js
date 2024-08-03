@@ -7,6 +7,10 @@ const carsRouter = express.Router();
 
 carsRouter.get("/", authMiddleware, ctrlWrapper(carsController.getCars));
 carsRouter.post("/", authMiddleware, ctrlWrapper(carsController.addedCars));
-carsRouter.delete("/", authMiddleware, ctrlWrapper(carsController.deleteCars));
+carsRouter.delete(
+  "/:id",
+  authMiddleware,
+  ctrlWrapper(carsController.deleteCars)
+);
 
 module.exports = carsRouter;
