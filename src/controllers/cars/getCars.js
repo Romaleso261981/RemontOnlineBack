@@ -16,19 +16,14 @@ const getCars = async (req, res) => {
   const { id } = jwt.verify(token, ACCESS_SECRET_KEY);
 
   try {
-    // Загальна кількість карток
     const total_items = await Cars.countDocuments({ owner: id });
 
-    // Загальна кількість сторінок
     const total_pages = Math.ceil(total_items / limit);
 
-    // Позиція для пагінації
     const skip = (numberPage - 1) * limit;
 
-    // Отримання карток з пагінацією
     const cars = await Cars.find({ owner: id }).skip(skip).limit(Number(limit));
 
-    // Обчислення попередньої та наступної сторінок
     const prev = numberPage > 1 ? numberPage - 1 : null;
     const next = numberPage < total_pages ? numberPage + 1 : null;
 
