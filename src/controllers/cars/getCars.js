@@ -33,11 +33,13 @@ const getCars = async (req, res) => {
     const next = numberPage < total_pages ? numberPage + 1 : null;
 
     return res.status(200).json({
-      total_items,
-      total_pages,
-      prev,
-      next,
-      items: cars
+      items: cars,
+      carsRespons: {
+        total_pages,
+        total_items,
+        prev,
+        next
+      }
     });
   } catch (error) {
     console.error("Error fetching cars by owner:", error);
