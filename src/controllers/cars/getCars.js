@@ -15,6 +15,8 @@ const getCars = async (req, res) => {
 
   const { id } = jwt.verify(token, ACCESS_SECRET_KEY);
 
+  console.log("id", id);
+
   try {
     const total_items = await Cars.countDocuments({ owner: id });
 

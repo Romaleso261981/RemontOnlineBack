@@ -12,6 +12,7 @@ carsRouter.get(
   ctrlWrapper(carsController.getCarById)
 );
 carsRouter.post("/", authMiddleware, ctrlWrapper(carsController.addedCars));
+carsRouter.get("/docs", authMiddleware, ctrlWrapper(carsController.getDocs));
 carsRouter.post(
   "/update/:id",
   authMiddleware,
